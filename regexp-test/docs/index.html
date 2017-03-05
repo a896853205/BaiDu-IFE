@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>正则表达式入门</title>
+	<link rel="stylesheet" href="./css/style.css">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+	<ul class="question-base">
+		<li>编写一个判断给定数字是否为手机号码的正则表达式</li>
+		<li>编写一个判断输入的字符串是否有相邻重复单词的正则表达式</li>
+		<li>编写一个可测试的输入框</li>
+		<li>手机自适应</li>
+	</ul>
+	<ul class="nav">
+		<li><a href="#phone">电话号</a></li>
+		<li><a href="#word">重复相邻单词</a></li>
+		<li><a href="#testMe">自我测试</a></li>
+	</ul>
+	<section>
+		<div id="phone" class="regexp-main">
+			<span class="regexp-title">
+				电话号
+			</span>
+			<input id="phoneInput" type="text" placeholder="测试用例">
+			<textarea type="text" disabled="disabled" resize="">/^(139|138|137|136|135|134|159|158|157|150|151|152|188|130|131|132|156|155|133|153|189)[0-9]{8}$/</textarea>
+			<button id="phoneButton">开始测试</button>
+			<div class="regexp-result">
+				test: <span id="phoneTestShow"></span>
+			</div>
+		</div>
+		<div id="word" class="regexp-main">
+			<span class="regexp-title">
+				重复相邻单词
+			</span>
+			<input id="wordInput" type="text" placeholder="测试用例">
+			<textarea type="text" disabled="disabled" resize="">/(^|\s)(\b\w+\b)\s+\2/</textarea>
+			<button id="wordButton">开始测试</button>
+			<div class="regexp-result">
+				test: <span id="wordTestShow"></span>
+			</div>
+		</div>
+		<div id="testMe" class="regexp-main">
+			<span class="regexp-title">
+				自我测试
+			</span>
+			<input id="myInput" type="text" placeholder="测试用例">
+			<input id="myRegExp" type="text" placeholder="正则表达式">
+			<button id="myButton">开始测试</button>
+			<div class="regexp-result">
+				test: <span id="myTestShow"></span>
+			</div>
+		</div>
+	</section>
+	<script src="./js/main.js"></script>
+</body>
+</html>

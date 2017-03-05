@@ -1,0 +1,103 @@
+/* ---base start--- */
+html{
+    background: #f5f5f5;
+}
+*{
+    font-family:"微软雅黑";
+    padding:0;
+    margin:0;
+}
+.question-base{
+    background: #237fdd;
+    color:#fff;
+    padding:10px 10px 10px 40px;
+    width:50%;
+    border-radius:10px;
+    box-sizing:border-box;
+}
+@media only screen and (max-width:480px){
+	html{
+		font-size: 14px;
+	}
+	.question-base{
+		width:100%;
+		border-radius:0;
+	}
+} 
+section{
+	display:block;
+	margin-bottom:50px;
+	box-shadow:0 5px 5px #666;
+	padding-bottom:10px;
+}
+/* ---base end--- */
+/* ---nav start--- */
+.nav{
+	list-style: none;
+	padding:10px;
+	background:rgb(24,34,61);
+}
+.nav li{
+	display:inline-block;
+	margin-left:20px;
+}
+.nav li a{
+	color:#fff;
+}
+.nav li a:link,
+.nav li a:visited,
+.nav li a:active{
+	color:#fff;
+	text-decoration:none;
+}
+.nav li a:hover{
+	text-decoration:underline;
+	cursor:pointer;
+}
+/* ---nav end--- */
+/* ---main start--- */
+.regexp-main{
+	border:3px solid #666;
+	margin:20px 5% 0;
+	padding:0 20px 10px;
+}
+.regexp-main:last-child{
+	margin-bottom:10px;
+}
+.regexp-title{
+	position:relative;
+	top:-10px;
+	left:10px;
+	background:#f5f5f5;
+	padding:0 5px;
+}
+.regexp-main input,
+.regexp-main textarea{
+	display:block;
+	margin:0 auto 10px;
+	border-radius:5px;
+	border:1px solid #ddd;
+	padding:8px 15px;
+	width:100%;
+	box-sizing: border-box;
+}
+.regexp-main textarea{
+	resize:none;
+}
+.regexp-main button{
+	display:block;
+	margin:0 auto 10px;
+	border:1px solid rgb(24,34,61);
+	border-radius:3px;
+	padding:4px 15px;
+	background:rgb(24,34,61);
+	color:#fff;
+	cursor:pointer;
+	transition:.3s;
+}
+.regexp-main button:hover{
+	background:#f5f5f5;
+	color:rgb(24,34,61);
+	border:1px solid rgb(24,34,61);
+}
+/* ---main end--- */

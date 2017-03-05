@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>悬浮模糊效果</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<!--[if lte IE9]>
+<p>您的浏览器版本过低,请到<a href="http://browsehappy.com">这里</a>更新</p>
+<![endif]-->
+<ul class="question-base">
+    <li>实现文字流光渐变</li>
+    <li>背景模糊处理</li>
+    <li>按钮边框从中到两边扩展</li>
+    <li>没能做到兼容IE,试着用svg的filter没能成功</li>
+    <li>就一个css文件就没用gulp工具压缩</li>
+</ul>
+<div class="dim-main">
+    <img src="./img/background.jpg" alt="背景图片">
+    <button>
+            <span class="span-out">
+                <span class="span-in">
+                    莫笑农家腊酒浑,
+                    丰年留客足鸡豚.
+                    山重水复疑无路,
+                    柳暗花明又一村.
+                </span>
+            </span>
+    </button>
+</div>
+</body>
+</html>
