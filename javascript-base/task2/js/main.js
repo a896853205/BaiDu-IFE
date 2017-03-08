@@ -149,9 +149,9 @@
          */
         _showArrayData: function (data) {
             if (data instanceof Array) {
+                let noun = 0;
+                _sortInnerArray(data);
                 if (Array.prototype.forEach) {
-                    let noun = 0;
-                    _sortInnerArray(data);
                     data.forEach(item => {
                         if (item[1] > 60) {
                             _pushLi(item, noun++); 
@@ -159,7 +159,11 @@
                     });
                 }
                 else {
-                    // for基本
+                    for (let i = 0;i < data.length;i ++) {
+                        if (data[i][1] > 60) {
+                            _pushLi(item, noun++);
+                        }
+                    }
                 }
             }
             else {
