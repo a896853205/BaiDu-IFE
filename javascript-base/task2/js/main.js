@@ -13,9 +13,9 @@
     function numTransformChinese (num) {
         const baseNum = ['','一','二','三','四','五','六','七','八','九'];
         const basePlace = ['','十','百','千','万','千万','十万','百万','千万','亿'];
+        num += '';
         let post = _calculatePost(num);
         let chineseNum = '';
-        num = num + '';
         if (post === 2 && num[0] === '1') {
             let nextNum = num[1];
             return `${basePlace[1]}${baseNum[nextNum]}`;
@@ -27,11 +27,10 @@
         return chineseNum;
         /**
          * 计算位数
-         * @param  {number} num 需要计算位数的数字
+         * @param  {string} num 需要计算位数的字符串
          * @return {number} num.length 这个数字的长度
          */
         function _calculatePost (num) {
-            num = num + '';
             return num.length;
         }
     }
@@ -141,7 +140,6 @@
                 	throw Error('It not a element.');
                 }
             }
-        },
         /**
          * 展示数组数据
          *
