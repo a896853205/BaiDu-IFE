@@ -59,5 +59,6 @@ input:focus{
     text-align:center;
     width:30px;
     border-radius:3px;
+    transition:.3s;
 }
 /* --- main-end --- */

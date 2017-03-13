@@ -44,63 +44,13 @@
 		},
 		/**
 		 * 绑定所有时间函数
-		 * @return {undefined} 无返回值
+		 * @param {string} id 要绑定事件的DOM的ID
+         * @param {Function} bindFunction 绑定的函数
+         * @param {string} type 绑定的方式
 		 */
-		bindHandler: function (){
-            let leftOutBtn = document.getElementById('leftOut-button');
-            let leftInBtn = document.getElementById('leftIn-button');
-            let input = document.getElementById('num-input');
-            let rightInBtn = document.getElementById('rightIn-button');
-            let rightOutBtn = document.getElementById('rightOut-button');
-            let showDiv = document.getElementById('show-div');
-            let bubbleBtn = document.getElementById('bublleSort-button');
-            leftInBtn.onclick = function (){
-                let value = input.value;
-                if (App._inputJudge(value)) {
-                    App.leftIn(value);
-                }
-                else {
-                    alert('请输入正确的数值');
-                }
-            }
-            leftOutBtn.onclick = function (){
-            	if (App._data.length === 0) {
-                    alert('没有数啦');
-            	}
-            	else {
-                    let outValue = App.leftOut();
-                    App.outHandler(outValue);	
-            	}
-            }
-            rightInBtn.onclick = function (){
-                let value = input.value;
-                if (App._inputJudge(value)) {
-                    App.rightIn(value);
-                }
-                else {
-                    alert('请输入正确的数值');
-                }
-            }
-            rightOutBtn.onclick = function (){
-                if (App._data.length === 0) {
-                    alert('没有啦');
-                }
-                else {
-                    let outValue = App.rightOut();
-                    App.outHandler(outValue);
-                }
-            }
-            // 绑定展示框点击事件
-            showDiv.addEventListener('click',event => {
-                let item = event.target;
-                if (item.nodeName === 'SPAN' && item.nodeType === 1) {
-                    let arr = Array.prototype.slice.call(item.parentNode.childNodes);
-                    let outIndex = arr.indexOf(item);
-                    App._data.splice(outIndex, 1);
-                    App.render();
-                }
-            });
-            bubbleBtn.onclick = App.bubbleSort;
+		bindHandler: function (id, bindFunction, type = "click"){
+            let dom = document.getElementById(id);
+            dom.addEventListener(type, bindFunction);
 		},
 		/**
 		 * 判断输入框的内容
@@ -143,45 +93,60 @@
             });
 		},
         bubbleSort: function (){
-            let interval = 500;
-            for (let i = App._data.length;i > 0;i--) {
-                for (let j = 0;j < i - 1;j++) {
-                    // 改变颜色
-                    setTimeout(() => {
-                        (function (j){
-                            App.changeColor(j);
-                            App.changeColor(j + 1);
-                        })(j);
-                    }, interval);
-                    interval += 500;
-                    setTimeout(() => {
-                        (function (j){
-                            if(App._data[j] > App._data[j + 1]) {
-                                // 互相调换
-                                [App._data[j], App._data[j + 1]] = [App._data[j + 1], App._data[j]];
-                                App.render();
-                                App.changeColor(j);
-                                App.changeColor(j + 1);
-                            }
-                        })(j);
-                    }, interval);
-                    interval += 500;
-                    // 改变颜色
-                    setTimeout(() => {
-                        (function (j){
-                            App.changeColor(j, "");
-                            App.changeColor(j + 1, "");
-                        })(j);
-                    }, interval);
-                    interval += 500;
+            /**
+             * 改变两个颜色
+             * @param {number} j index值
+             * @param {string} two className值
+             * @return {undefined} 无返回值
+             */
+            function changeTwoColor (j, two){
+                App.changeColor(j, two);
+                App.changeColor(j + 1, two);
+            }
+            /**
+             * 交换两个index值
+             *
+             * @param  {number} j 要改变的低的值
+             * @return {undefined} 无返回值
+             */
+            function exchangeIndex(j){
+                if(App._data[j] > App._data[j + 1]) {
+                    // 互相调换
+                    [App._data[j], App._data[j + 1]] = [App._data[j + 1], App._data[j]];
+                    App.render();
+                    App.changeColor(j);
+                    App.changeColor(j + 1);
                 }
             }
-            setTimeout(() => {
-                App._data.forEach((item, index) => {
-                    App.changeColor(index, 'btn-success');
-                });
-            },interval);
-            interval = 500;
+            /**
+             * 主体的迭代器
+             *
+             * @yield {Function} changeTwoColor 改变颜色
+             * @yield {Function} 交换两者
+             * @yield {Function} 改变回颜色
+             */
+            function *mainRun () {
+                for (let i = App._data.length;i > 0;i--) {
+                    for (let j = 0;j < i - 1;j++) {
+                        yield changeTwoColor(j);
+                        yield exchangeIndex(j);
+                        yield changeTwoColor(j, "");
+                    }
+                }
+            }
+            // 主循环
+            let main = mainRun();
+            let bubbleInterval = setInterval(() => {
+                let flag = main.next();
+                if (flag.done) {
+                    clearInterval(bubbleInterval);
+                    setTimeout(() => {
+                        App._data.forEach((item, index) => {
+                            App.changeColor(index, 'btn-success');
+                        });
+                    }, 500);
+                }
+            }, 500);
         },
         /**
          * 指定index改变颜色
@@ -194,8 +159,61 @@
             let arr = Array.prototype.slice.call(showDiv.childNodes);
             arr[index].setAttribute('class',className);
         },
-		init: function (){
-            this.bindHandler();
+        init: function (){
+            let input = document.getElementById('num-input');
+            // 左出绑定事件
+            this.bindHandler('leftIn-button', () => {
+                let value = input.value;
+                if (App._inputJudge(value)) {
+                    App.leftIn(value);
+                }
+                else {
+                    alert('请输入正确的数值');
+                }
+            });
+            // 左进绑定事件
+            this.bindHandler('leftOut-button', () => {
+                if (App._data.length === 0) {
+                    alert('没有数啦');
+                }
+                else {
+                    let outValue = App.leftOut();
+                    App.outHandler(outValue);   
+                }
+            });
+            // 右进绑定事件
+            this.bindHandler('rightIn-button', () => {
+                let value = input.value;
+                if (App._inputJudge(value)) {
+                    App.rightIn(value);
+                }
+                else {
+                    alert('请输入正确的数值');
+                }
+            });
+            // 右出绑定事件
+            this.bindHandler('rightOut-button', () => {
+                if (App._data.length === 0) {
+                    alert('没有啦');
+                }
+                else {
+                    let outValue = App.rightOut();
+                    App.outHandler(outValue);
+                }
+            });
+            // 展示框点击绑定事件
+            this.bindHandler('show-div', event => {
+                let item = event.target;
+                if (item.nodeName === 'SPAN' && item.nodeType === 1) {
+                    let arr = Array.prototype.slice.call(item.parentNode.childNodes);
+                    let outIndex = arr.indexOf(item);
+                    App._data.splice(outIndex, 1);
+                    App.render();
+                }
+            });
+            // 冒泡排序点击事件
+            this.bindHandler('bublleSort-button', App.bubbleSort);
+            this.render();
 		}
 	}
 	window.App = App;
