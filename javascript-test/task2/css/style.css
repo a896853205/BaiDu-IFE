@@ -1,0 +1,63 @@
+/**
+ * @file 大概样式
+ * @author Qc<896853205@qq.com>
+ */
+
+/* --- main-start --- */
+input{
+    border:1px solid #888;
+    padding:5px 8px;
+    color:#666;
+    border-radius:3px;
+    transition:.3s;
+}
+input:focus{
+	box-shadow: 0 0 3px #0080FF;
+	border:1px solid transparent;
+}
+.btn {
+	border:1px solid transparent;
+	padding:5px 8px;
+	border-radius:3px;
+	cursor:pointer;
+	transition:.3s;
+}
+.btn-info{
+    color:#fff;
+    background:#0080FF!important;
+}
+.btn-info:hover{
+	background:#46a3ff;
+}
+.btn-info:active{
+	background:#0000c6;
+}
+.btn-danger{
+    color:#fff;
+    background:#f75000!important;
+}
+.btn-danger:hover{
+	background:#ff8040;
+}
+.btn-danger:active{
+    background:#842B00;
+}
+.btn-success{
+    color:#fff;
+    background:#00DB00!important;
+}
+#show-div{
+    margin-top:100px;
+    position:relative;
+    height:100px;
+}
+#show-div span{
+	display:inline-block;
+    background:#0080FF;
+    color:#fff;
+    padding:4px 0;
+    text-align:center;
+    width:30px;
+    border-radius:3px;
+}
+/* --- main-end --- */
